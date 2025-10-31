@@ -1,34 +1,33 @@
-pipeline { // Defines the entire workflow 
-    [cite_start]agent any // Tells Jenkins to execute the pipeline on any available agent 
+pipeline { 
+    agent any 
 
-    stages { // Contains the sequence of stages
+    stages { 
 
-        stage('Checkout Code') { // First stage to clone the code 
+        stage('Checkout Code') { 
             steps {
-                [cite_start]// Configure it to pull code from the GitHub repository using the Git plugin
                 git branch: 'main', url: 'https://github.com/noorulain-nn/task.git'
             }
         }
 
-        stage('Install Dependencies') { // Stage to install Node.js packages
+        stage('Install Dependencies') { 
             steps {
-                bat 'npm install' // Runs the npm install command
+                bat 'npm install'
             }
         } 
 
-        stage('Run Tests') { // Stage to execute the project's tests
+        stage('Run Tests') {
             steps {
-                bat 'npm test' // Runs the npm test command
+                bat 'npm test'
             }
         }
     }
 
-    post { // Actions that run after all stages are complete
+    post { 
         success {
-            echo 'Build and tests successful!' [cite_start]// Display success status 
+            echo 'Build and tests successful!'
         }
         failure {
-            echo 'Build failed or tests failed!' [cite_start]// Display failure status
+            echo 'Build failed or tests failed!'
         }
     }
 }
